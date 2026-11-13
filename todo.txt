@@ -1,0 +1,7 @@
+paleta de cores selecinada:
+
+Primária: #2B6CB0
+Secundária: #63B3ED
+Fundo: #F5F9FC
+Texto: #1A2B3C
+Destaque: #F6C945
