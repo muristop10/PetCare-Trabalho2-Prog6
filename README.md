@@ -1,10 +1,10 @@
-# Adopet
+# PetCare
 
 Aplicativo mobile para gerenciamento de animais disponiveis para adocao.
 
 ## Objetivo do sistema
 
-O Adopet tera como foco principal um fluxo completo de cadastro e acompanhamento de animais para adocao, com interface mobile e persistencia de dados em nuvem.
+O PetCare tera como foco principal um fluxo completo de cadastro e acompanhamento de animais para adocao, com interface mobile e persistencia de dados em nuvem.
 
 ## Principais funcionalidades
 
