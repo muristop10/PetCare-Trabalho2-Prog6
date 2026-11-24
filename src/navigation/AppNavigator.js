@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,6 +9,7 @@ import AgendamentoFormScreen from '../screens/agendamentos/AgendamentoFormScreen
 import PetListScreen from '../screens/pets/PetListScreen';
 import PetFormScreen from '../screens/pets/PetFormScreen';
 import SobreScreen from '../screens/SobreScreen';
+import { petsIniciais } from '../config/dados';
 
 const Abas = createBottomTabNavigator();
 const StackPets = createNativeStackNavigator();
@@ -17,17 +19,27 @@ const icone = (nome) => {
   return ({ color, size }) => <MaterialCommunityIcons name={nome} size={size} color={color} />;
 }
 
-// Meus Pets tem duas telas: a lista e o formulário (a barra de abas continua visível)
-function MeusPetsNavigator() {
+// Meus Pets tem duas telas: a lista e o formulário (a barra de abas continua visível).
+// As telas recebem os pets e as funções por props, vindos do AppNavigator.
+function MeusPetsNavigator({ pets, onExcluir }) {
   return (
     <StackPets.Navigator screenOptions={{ headerShown: false }}>
-      <StackPets.Screen name="ListaPets" component={PetListScreen} />
+      <StackPets.Screen name="ListaPets">
+        {(props) => <PetListScreen {...props} pets={pets} onExcluir={onExcluir} />}
+      </StackPets.Screen>
       <StackPets.Screen name="CadastrarPet" component={PetFormScreen} />
     </StackPets.Navigator>
   );
 }
 
 export default function AppNavigator() {
+  // Lista de pets do app (por enquanto fixa; depois virá do Firebase)
+  const [pets, setPets] = useState(petsIniciais);
+
+  function excluirPet(id) {
+    setPets(pets.filter((pet) => pet.id !== id));
+  }
+
   return (
     <Abas.Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <BarraAbas {...props} />}>
       <Abas.Screen
@@ -40,11 +52,9 @@ export default function AppNavigator() {
         component={AgendamentoListScreen}
         options={{ title: 'Agendamentos', tabBarIcon: icone('calendar-blank-outline') }}
       />
-      <Abas.Screen
-        name="MeusPets"
-        component={MeusPetsNavigator}
-        options={{ title: 'Meus Pets', tabBarIcon: icone('paw-outline') }}
-      />
+      <Abas.Screen name="MeusPets" options={{ title: 'Meus Pets', tabBarIcon: icone('paw-outline') }}>
+        {() => <MeusPetsNavigator pets={pets} onExcluir={excluirPet} />}
+      </Abas.Screen>
       <Abas.Screen
         name="Agendar"
         component={AgendamentoFormScreen}
