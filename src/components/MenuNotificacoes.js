@@ -21,8 +21,6 @@ export default function MenuNotificacoes({ agendamento, onAbrirAgendamento }) {
     <Menu
       visible={aberto}
       onDismiss={() => setAberto(false)}
-      // Anima ao abrir, mas fecha na hora (senão o menu ainda aparece na próxima tela)
-      theme={{ animation: { scale: aberto ? 1 : 0 } }}
       anchorPosition="bottom"
       contentStyle={[styles.menu, { width: width - espacos.margemCabecalho * 2 }]}
       anchor={
