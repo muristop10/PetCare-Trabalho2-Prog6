@@ -1,7 +1,7 @@
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { IconButton, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import Cabecalho from '../components/Cabecalho';
-import CartaoProximoAgendamento from '../components/CartaoProximoAgendamento';
+import MenuNotificacoes from '../components/MenuNotificacoes';
 import CartaoAtalho from '../components/CartaoAtalho';
 import SecaoServicos from '../components/SecaoServicos';
 import { proximoAgendamento, servicosEsteticos, servicosVeterinarios } from '../config/dados';
@@ -24,13 +24,9 @@ export default function InicioScreen({ navigation }) {
             </Text>
           </View>
 
-          {/* Sino só visual por enquanto */}
-          <IconButton
-            icon="bell-outline"
-            size={20}
-            iconColor={cores.superficie}
-            containerColor={cores.botaoSinoFundo}
-            style={styles.sino}
+          <MenuNotificacoes
+            agendamento={proximoAgendamento}
+            onAbrirAgendamento={() => navigation.navigate('Agendamentos')}
           />
         </View>
 
@@ -38,13 +34,6 @@ export default function InicioScreen({ navigation }) {
       </Cabecalho>
 
       <ScrollView contentContainerStyle={styles.conteudo} showsVerticalScrollIndicator={false}>
-        <View style={styles.blocoComMargem}>
-          <CartaoProximoAgendamento
-            agendamento={proximoAgendamento}
-            onPress={() => navigation.navigate('Agendamentos')}
-          />
-        </View>
-
         <View style={[styles.blocoComMargem, styles.atalhos]}>
           <CartaoAtalho
             icone="plus"
@@ -102,9 +91,6 @@ const styles = StyleSheet.create({
   },
   textoMarcaDestaque: {
     color: cores.primaria,
-  },
-  sino: {
-    margin: 0,
   },
   saudacao: {
     ...tipografia.saudacao,
