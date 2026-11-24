@@ -1,5 +1,14 @@
 // Funções para datas no formato DD/MM/AAAA (o app guarda a data como texto)
 
+// Transforma o que foi digitado em DD/MM/AAAA, colocando as barras sozinho
+export function mascararData(texto) {
+  const numeros = texto.replace(/\D/g, '').slice(0, 8);
+
+  if (numeros.length <= 2) return numeros;
+  if (numeros.length <= 4) return `${numeros.slice(0, 2)}/${numeros.slice(2)}`;
+  return `${numeros.slice(0, 2)}/${numeros.slice(2, 4)}/${numeros.slice(4)}`;
+}
+
 // Converte "12/03/2023" em Date (ou null se a data não existir, como 31/02)
 function lerData(texto) {
   if (!/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) return null;
@@ -10,6 +19,12 @@ function lerData(texto) {
   // O Date "corrige" datas inválidas (31/02 vira 03/03); se mudou, é inválida
   if (data.getDate() !== dia || data.getMonth() !== mes - 1) return null;
   return data;
+}
+
+// Data de nascimento válida: completa, existente e que não está no futuro
+export function dataNascimentoValida(texto) {
+  const data = lerData(texto);
+  return data !== null && data <= new Date();
 }
 
 // "3 anos", "1 ano", "8 meses" ou "1 mês"

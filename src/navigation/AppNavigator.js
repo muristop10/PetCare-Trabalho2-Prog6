@@ -21,13 +21,16 @@ const icone = (nome) => {
 
 // Meus Pets tem duas telas: a lista e o formulário (a barra de abas continua visível).
 // As telas recebem os pets e as funções por props, vindos do AppNavigator.
-function MeusPetsNavigator({ pets, onExcluir }) {
+function MeusPetsNavigator({ pets, onAdicionar, onEditar, onExcluir }) {
   return (
     <StackPets.Navigator screenOptions={{ headerShown: false }}>
       <StackPets.Screen name="ListaPets">
         {(props) => <PetListScreen {...props} pets={pets} onExcluir={onExcluir} />}
       </StackPets.Screen>
-      <StackPets.Screen name="CadastrarPet" component={PetFormScreen} />
+      {/* Sem gesto de arrastar para voltar: a saída passa pelo modal "Sair sem salvar?" */}
+      <StackPets.Screen name="CadastrarPet" options={{ gestureEnabled: false }}>
+        {(props) => <PetFormScreen {...props} onAdicionar={onAdicionar} onEditar={onEditar} />}
+      </StackPets.Screen>
     </StackPets.Navigator>
   );
 }
@@ -35,6 +38,14 @@ function MeusPetsNavigator({ pets, onExcluir }) {
 export default function AppNavigator() {
   // Lista de pets do app (por enquanto fixa; depois virá do Firebase)
   const [pets, setPets] = useState(petsIniciais);
+
+  function adicionarPet(pet) {
+    setPets([...pets, { ...pet, id: String(Date.now()) }]);
+  }
+
+  function editarPet(petEditado) {
+    setPets(pets.map((pet) => (pet.id === petEditado.id ? petEditado : pet)));
+  }
 
   function excluirPet(id) {
     setPets(pets.filter((pet) => pet.id !== id));
@@ -53,7 +64,14 @@ export default function AppNavigator() {
         options={{ title: 'Agendamentos', tabBarIcon: icone('calendar-blank-outline') }}
       />
       <Abas.Screen name="MeusPets" options={{ title: 'Meus Pets', tabBarIcon: icone('paw-outline') }}>
-        {() => <MeusPetsNavigator pets={pets} onExcluir={excluirPet} />}
+        {() => (
+          <MeusPetsNavigator
+            pets={pets}
+            onAdicionar={adicionarPet}
+            onEditar={editarPet}
+            onExcluir={excluirPet}
+          />
+        )}
       </Abas.Screen>
       <Abas.Screen
         name="Agendar"
