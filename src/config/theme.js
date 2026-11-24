@@ -22,6 +22,16 @@ export const cores = {
   verdeEscuro: '#1E6B43',
   azulSuave: '#DCE9F8',
   azulEscuro: '#1F4F85',
+  vermelhoEscuro: '#A12E2E',
+};
+
+// Cores de cada status de agendamento: "fundo" pinta o selo e a borda do card,
+// "texto" pinta o texto e o ponto do selo
+export const coresStatus = {
+  Pendente: { fundo: cores.amareloSuave, texto: cores.amareloEscuro },
+  Confirmado: { fundo: cores.verdeSuave, texto: cores.verdeEscuro },
+  Concluído: { fundo: cores.azulSuave, texto: cores.azulEscuro },
+  Cancelado: { fundo: cores.perigoSuave, texto: cores.vermelhoEscuro },
 };
 
 // Nomes das fontes carregadas no App.js (cada peso é um arquivo)
@@ -53,6 +63,7 @@ export const tipografia = {
   tituloModal: { fontFamily: fontes.negrito, fontSize: 18, lineHeight: 24 },
   nomePet: { fontFamily: fontes.seminegrito, fontSize: 16, lineHeight: 22 },
   rotuloChip: { fontFamily: fontes.seminegrito, fontSize: 14, lineHeight: 20 },
+  rotuloSelo: { fontFamily: fontes.seminegrito, fontSize: 12, lineHeight: 16 },
   rotuloCampo: { fontFamily: fontes.seminegrito, fontSize: 13, lineHeight: 18 },
   rotuloBotao: { fontFamily: fontes.seminegrito, fontSize: 16, lineHeight: 20 },
   rotuloBotaoPequeno: { fontFamily: fontes.seminegrito, fontSize: 13, lineHeight: 16 },
