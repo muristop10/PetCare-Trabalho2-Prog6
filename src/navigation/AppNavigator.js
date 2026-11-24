@@ -13,6 +13,7 @@ import { agendamentosIniciais, petsIniciais } from '../config/dados';
 
 const Abas = createBottomTabNavigator();
 const StackPets = createNativeStackNavigator();
+const StackAgendamentos = createNativeStackNavigator();
 
 // Cria a função que desenha o ícone de uma aba
 const icone = (nome) => {
@@ -35,6 +36,21 @@ function MeusPetsNavigator({ pets, onAdicionar, onEditar, onExcluir }) {
   );
 }
 
+// Agendamentos também tem duas telas: a lista e o formulário de edição.
+// A aba Agendar usa o mesmo formulário, mas só para agendamentos novos.
+function AgendamentosNavigator({ agendamentos, pets, onEditar, onExcluir }) {
+  return (
+    <StackAgendamentos.Navigator screenOptions={{ headerShown: false }}>
+      <StackAgendamentos.Screen name="ListaAgendamentos">
+        {(props) => <AgendamentoListScreen {...props} agendamentos={agendamentos} onExcluir={onExcluir} />}
+      </StackAgendamentos.Screen>
+      <StackAgendamentos.Screen name="EditarAgendamento" options={{ gestureEnabled: false }}>
+        {(props) => <AgendamentoFormScreen {...props} pets={pets} onEditar={onEditar} />}
+      </StackAgendamentos.Screen>
+    </StackAgendamentos.Navigator>
+  );
+}
+
 export default function AppNavigator() {
   // Lista de pets do app (por enquanto fixa; depois virá do Firebase)
   const [pets, setPets] = useState(petsIniciais);
@@ -54,6 +70,19 @@ export default function AppNavigator() {
   // Lista de agendamentos do app (por enquanto fixa; depois virá do Firebase)
   const [agendamentos, setAgendamentos] = useState(agendamentosIniciais);
 
+  // Todo agendamento novo começa como Pendente
+  function adicionarAgendamento(agendamento) {
+    setAgendamentos([...agendamentos, { ...agendamento, id: String(Date.now()), status: 'Pendente' }]);
+  }
+
+  function editarAgendamento(agendamentoEditado) {
+    setAgendamentos(
+      agendamentos.map((agendamento) =>
+        agendamento.id === agendamentoEditado.id ? agendamentoEditado : agendamento
+      )
+    );
+  }
+
   function excluirAgendamento(id) {
     setAgendamentos(agendamentos.filter((agendamento) => agendamento.id !== id));
   }
@@ -69,10 +98,11 @@ export default function AppNavigator() {
         name="Agendamentos"
         options={{ title: 'Agendamentos', tabBarIcon: icone('calendar-blank-outline') }}
       >
-        {(props) => (
-          <AgendamentoListScreen
-            {...props}
+        {() => (
+          <AgendamentosNavigator
             agendamentos={agendamentos}
+            pets={pets}
+            onEditar={editarAgendamento}
             onExcluir={excluirAgendamento}
           />
         )}
@@ -87,11 +117,9 @@ export default function AppNavigator() {
           />
         )}
       </Abas.Screen>
-      <Abas.Screen
-        name="Agendar"
-        component={AgendamentoFormScreen}
-        options={{ title: 'Agendar', tabBarIcon: icone('calendar-plus') }}
-      />
+      <Abas.Screen name="Agendar" options={{ title: 'Agendar', tabBarIcon: icone('calendar-plus') }}>
+        {(props) => <AgendamentoFormScreen {...props} pets={pets} onAdicionar={adicionarAgendamento} />}
+      </Abas.Screen>
       <Abas.Screen
         name="Sobre"
         component={SobreScreen}

@@ -21,6 +21,39 @@ function lerData(texto) {
   return data;
 }
 
+// Transforma o que foi digitado em HH:MM, colocando os dois-pontos sozinho
+export function mascararHora(texto) {
+  const numeros = texto.replace(/\D/g, '').slice(0, 4);
+
+  if (numeros.length <= 2) return numeros;
+  return `${numeros.slice(0, 2)}:${numeros.slice(2)}`;
+}
+
+// Mensagem de erro da data do agendamento ('' = sem erro).
+// Só confere quando a data está completa, para não reclamar enquanto a pessoa digita.
+export function erroDataAgendamento(texto) {
+  if (texto.length < 10) return '';
+
+  const data = lerData(texto);
+  if (!data) return 'Data inválida';
+
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0); // compara só o dia, sem a hora
+  if (data < hoje) return 'Data no passado';
+
+  return '';
+}
+
+// Mensagem de erro do horário ('' = sem erro)
+export function erroHora(texto) {
+  if (texto.length < 5) return '';
+
+  const [horas, minutos] = texto.split(':').map(Number);
+  if (horas > 23 || minutos > 59) return 'Horário inválido';
+
+  return '';
+}
+
 // Data de nascimento válida: completa, existente e que não está no futuro
 export function dataNascimentoValida(texto) {
   const data = lerData(texto);

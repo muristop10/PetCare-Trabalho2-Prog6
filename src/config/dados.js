@@ -44,10 +44,10 @@ export const avisoVacina = {
 // "servico" é o nome de um serviço das listas acima; a data fica no formato DD/MM/AAAA
 // "status" pode ser 'Pendente', 'Confirmado', 'Concluído' ou 'Cancelado'
 export const agendamentosIniciais = [
-  { id: '1', pet: 'Thor', servico: 'Banho e tosa', data: '18/11/2026', hora: '14:30', status: 'Pendente' },
-  { id: '2', pet: 'Mel', servico: 'Consulta', data: '20/11/2026', hora: '09:00', status: 'Confirmado' },
-  { id: '3', pet: 'Luna', servico: 'Vacinação', data: '05/11/2026', hora: '16:15', status: 'Concluído' },
-  { id: '4', pet: 'Thor', servico: 'Banho', data: '02/11/2026', hora: '10:00', status: 'Cancelado' },
+  { id: '1', pet: 'Thor', servico: 'Banho e tosa', data: '18/11/2026', hora: '14:30', observacoes: '', status: 'Pendente' },
+  { id: '2', pet: 'Mel', servico: 'Consulta', data: '20/11/2026', hora: '09:00', observacoes: '', status: 'Confirmado' },
+  { id: '3', pet: 'Luna', servico: 'Vacinação', data: '05/11/2026', hora: '16:15', observacoes: '', status: 'Concluído' },
+  { id: '4', pet: 'Thor', servico: 'Banho', data: '02/11/2026', hora: '10:00', observacoes: '', status: 'Cancelado' },
 ];
 
 // Filtros da tela Agendamentos

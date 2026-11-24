@@ -50,7 +50,7 @@ export default function AgendamentoListScreen({ navigation, agendamentos, onExcl
           <CartaoAgendamento
             key={agendamento.id}
             agendamento={agendamento}
-            onEditar={() => navigation.navigate('Agendar', { agendamento })}
+            onEditar={() => navigation.navigate('EditarAgendamento', { agendamento })}
             onExcluir={() => setAgendamentoParaExcluir(agendamento)}
           />
         ))}
