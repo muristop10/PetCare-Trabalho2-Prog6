@@ -9,7 +9,7 @@ import AgendamentoFormScreen from '../screens/agendamentos/AgendamentoFormScreen
 import PetListScreen from '../screens/pets/PetListScreen';
 import PetFormScreen from '../screens/pets/PetFormScreen';
 import SobreScreen from '../screens/SobreScreen';
-import { petsIniciais } from '../config/dados';
+import { agendamentosIniciais, petsIniciais } from '../config/dados';
 
 const Abas = createBottomTabNavigator();
 const StackPets = createNativeStackNavigator();
@@ -51,6 +51,13 @@ export default function AppNavigator() {
     setPets(pets.filter((pet) => pet.id !== id));
   }
 
+  // Lista de agendamentos do app (por enquanto fixa; depois virá do Firebase)
+  const [agendamentos, setAgendamentos] = useState(agendamentosIniciais);
+
+  function excluirAgendamento(id) {
+    setAgendamentos(agendamentos.filter((agendamento) => agendamento.id !== id));
+  }
+
   return (
     <Abas.Navigator screenOptions={{ headerShown: false }} tabBar={(props) => <BarraAbas {...props} />}>
       <Abas.Screen
@@ -60,9 +67,16 @@ export default function AppNavigator() {
       />
       <Abas.Screen
         name="Agendamentos"
-        component={AgendamentoListScreen}
         options={{ title: 'Agendamentos', tabBarIcon: icone('calendar-blank-outline') }}
-      />
+      >
+        {(props) => (
+          <AgendamentoListScreen
+            {...props}
+            agendamentos={agendamentos}
+            onExcluir={excluirAgendamento}
+          />
+        )}
+      </Abas.Screen>
       <Abas.Screen name="MeusPets" options={{ title: 'Meus Pets', tabBarIcon: icone('paw-outline') }}>
         {() => (
           <MeusPetsNavigator
