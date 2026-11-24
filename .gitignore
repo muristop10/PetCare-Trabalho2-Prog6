@@ -1,0 +1,9 @@
+node_modules/
+.expo/
+dist/
+web-build/
+
+# Arquivos só para rodar localmente (no Snack as dependências são outras)
+package.json
+package-lock.json
+app.json
