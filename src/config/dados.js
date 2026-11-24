@@ -38,3 +38,60 @@ export const avisoVacina = {
   petId: 'luna',
   texto: 'A vacina da Luna vence em 12 dias. Que tal agendar o reforço?',
 };
+
+// ---------- Tela Sobre ----------
+
+export const empresa = {
+  nome: 'PetCare Clínica Veterinária',
+  endereco: 'Rua Princesa Isabel, 1536-E - São Cristóvão, Chapecó - SC, 89803-332',
+  historia:
+    'A PetCare nasceu em 2020 com a ideia de oferecer um cuidado completo aos animais, unindo saúde, conforto e praticidade em um só lugar. Seu objetivo é proporcionar atendimento veterinário de qualidade e produtos que contribuam para o bem-estar dos pets, sempre com carinho, responsabilidade, respeito e dedicação. A empresa busca crescer junto com seus clientes, construindo relações de confiança e tornando a vida dos animais cada vez melhor.',
+  horario: 'Seg a sáb., das 8h às 18h.',
+  telefone: '(00) 00000 - 0000',
+  email: 'petcare.contato@gmail.com',
+  // Posição do pino no mapa (aproximada: trecho da Rua Princesa Isabel - E; conferir no Google Maps)
+  latitude: -27.0842422,
+  longitude: -52.6259183,
+};
+
+// "cor" é o nome do par de cores no tema (amarelo, verde, azul)
+export const estatisticas = [
+  { id: 'anos', texto: '5+ anos de história', cor: 'amarelo' },
+  { id: 'pets', texto: '+ 2500 pets atendidos', cor: 'verde' },
+  { id: 'avaliacoes', texto: '+ 100 avaliações positivas no Reclame Aqui', cor: 'azul' },
+];
+
+// Fotos provisórias (mock). Trocar por require('../../assets/...') quando houver as fotos reais.
+// O último item de "itens" é o papel no projeto (aparece em azul).
+export const programadores = [
+  {
+    id: 'laura',
+    nome: 'Laura',
+    foto: { uri: 'https://i.pravatar.cc/400?img=47' },
+    itens: [
+      'Estudante do Módulo IV, IFSC.',
+      'Dona de um gato de 4 de 3 anos de idade, Oliver.',
+      'mais coisa',
+      'UX/UI designer, figma + css/layout da aplicação.',
+    ],
+  },
+  {
+    id: 'murilo',
+    nome: 'Murilo',
+    foto: { uri: 'https://i.pravatar.cc/400?img=12' },
+    itens: [
+      'Estudante do Módulo IV, IFSC.',
+      'Dono de uma cachorra de 4 anos de idade, Amora.',
+      'mais coisa',
+      'Dev fullstack react-native, desenvolvedor da aplicação.',
+    ],
+  },
+];
+
+// Botões de "Mais contatos" (sem link por enquanto)
+export const contatos = [
+  { id: 'instagram', nome: 'Instagram', icone: 'instagram' },
+  { id: 'facebook', nome: 'Facebook', icone: 'facebook' },
+  { id: 'linkedin', nome: 'LinkedIn', icone: 'linkedin' },
+  { id: 'email', nome: 'E-mail', icone: 'email-outline' },
+];
