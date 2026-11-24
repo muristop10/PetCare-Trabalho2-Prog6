@@ -9,7 +9,7 @@ import { cores, espacos, raios, tipografia } from '../config/theme';
 
 export default function InicioScreen({ navigation }) {
 
-  function Agendar(servico) {
+  function agendar(servico) {
     navigation.navigate('Agendar', { servico: servico.nome });
   }
 
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     paddingLeft: 6,
     paddingRight: 14,
     paddingVertical: 5,
+    marginTop: 12
   },
   logo: {
     width: 28,
