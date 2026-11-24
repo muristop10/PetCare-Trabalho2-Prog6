@@ -23,6 +23,9 @@ export const servicosVeterinarios = [
 
 // ---------- Meus Pets ----------
 
+export const especies = ['Cachorro', 'Gato', 'Outro'];
+export const sexos = ['Macho', 'Fêmea'];
+
 // Pets que já aparecem na lista ao abrir o app (a idade é calculada pela data)
 export const petsIniciais = [
   { id: 'thor', nome: 'Thor', especie: 'Cachorro', raca: 'Golden Retriever', sexo: 'Macho', dataNascimento: '12/03/2023' },
