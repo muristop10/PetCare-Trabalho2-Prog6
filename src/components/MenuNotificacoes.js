@@ -44,8 +44,10 @@ export default function MenuNotificacoes({ agendamento, onAbrirAgendamento }) {
       <View style={styles.conteudo}>
         <Text style={styles.titulo}>Notificações</Text>
 
-        {agendamento && (
+        {agendamento ? (
           <CartaoProximoAgendamento agendamento={agendamento} onPress={abrirAgendamento} />
+        ) : (
+          <Text style={styles.vazio}>Nenhuma notificação por enquanto.</Text>
         )}
       </View>
     </Menu>
@@ -76,5 +78,9 @@ const styles = StyleSheet.create({
   titulo: {
     ...tipografia.nomePet,
     color: cores.texto,
+  },
+  vazio: {
+    ...tipografia.corpo,
+    color: cores.textoSecundario,
   },
 });

@@ -65,6 +65,14 @@ A interface sera organizada em componentes reutilizaveis para:
 
 - Jackson Meires
 
+## Firebase (Realtime Database)
+
+Pets e agendamentos sao salvos, listados, editados e excluidos no Firebase (`src/config/firebase.js`, via API REST, sem instalar pacotes).
+
+- Banco: `https://petcare-murilolaura-default-rtdb.firebaseio.com` (nos `/pets` e `/agendamentos`).
+- As regras do banco precisam permitir leitura e escrita. Para desenvolvimento: `{ "rules": { ".read": true, ".write": true } }`.
+- Cada listagem (Meus Pets e Agendamentos) tem campo de busca.
+
 ## Status
 
 Projeto em desenvolvimento.

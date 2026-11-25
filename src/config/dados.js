@@ -1,11 +1,5 @@
-// Dados fixos por enquanto. Depois serão trocados pelos dados do Firebase.
-
-export const proximoAgendamento = {
-  pet: 'Teodor',
-  servico: 'Banho e tosa',
-  data: 'Qua, 18 nov',
-  hora: '14:30',
-};
+// Dados fixos do app (serviços, opções dos formulários e tela Sobre).
+// Pets e agendamentos NÃO ficam aqui: são gravados e lidos no Firebase (veja config/firebase.js).
 
 // "icone" é o nome do ícone no MaterialCommunityIcons
 export const servicosEsteticos = [
@@ -26,29 +20,10 @@ export const servicosVeterinarios = [
 export const especies = ['Cachorro', 'Gato', 'Outro'];
 export const sexos = ['Macho', 'Fêmea'];
 
-// Pets que já aparecem na lista ao abrir o app (a idade é calculada pela data)
-export const petsIniciais = [
-  { id: 'thor', nome: 'Thor', especie: 'Cachorro', raca: 'Golden Retriever', sexo: 'Macho', dataNascimento: '12/03/2023' },
-  { id: 'mel', nome: 'Mel', especie: 'Gato', raca: 'Siamês', sexo: 'Fêmea', dataNascimento: '05/08/2024' },
-  { id: 'luna', nome: 'Luna', especie: 'Cachorro', raca: 'Poodle', sexo: 'Fêmea', dataNascimento: '20/01/2021' },
-];
-
-// Aviso amarelo de Meus Pets (some se o pet for excluído)
-export const avisoVacina = {
-  petId: 'luna',
-  texto: 'A vacina da Luna vence em 12 dias. Que tal agendar o reforço?',
-};
-
 // ---------- Agendamentos ----------
 
-// "servico" é o nome de um serviço das listas acima; a data fica no formato DD/MM/AAAA
-// "status" pode ser 'Pendente', 'Confirmado', 'Concluído' ou 'Cancelado'
-export const agendamentosIniciais = [
-  { id: '1', pet: 'Thor', servico: 'Banho e tosa', data: '18/11/2026', hora: '14:30', observacoes: '', status: 'Pendente' },
-  { id: '2', pet: 'Mel', servico: 'Consulta', data: '20/11/2026', hora: '09:00', observacoes: '', status: 'Confirmado' },
-  { id: '3', pet: 'Luna', servico: 'Vacinação', data: '05/11/2026', hora: '16:15', observacoes: '', status: 'Concluído' },
-  { id: '4', pet: 'Thor', servico: 'Banho', data: '02/11/2026', hora: '10:00', observacoes: '', status: 'Cancelado' },
-];
+// Cada agendamento no Firebase tem: pet (nome), servico (nome de um serviço das listas acima),
+// data (DD/MM/AAAA), hora, observacoes e status ('Pendente', 'Confirmado', 'Concluído' ou 'Cancelado')
 
 // Filtros da tela Agendamentos
 export const filtrosAgendamento = ['Todos', 'Estética', 'Veterinário'];
@@ -57,15 +32,15 @@ export const filtrosAgendamento = ['Todos', 'Estética', 'Veterinário'];
 
 export const empresa = {
   nome: 'PetCare Clínica Veterinária',
-  endereco: 'Rua Princesa Isabel, 1536-E - São Cristóvão, Chapecó - SC, 89803-332',
+  endereco: 'R. Uruguai, 294 - Centro, Chapecó - SC, 89801-570',
   historia:
     'A PetCare nasceu em 2020 com a ideia de oferecer um cuidado completo aos animais, unindo saúde, conforto e praticidade em um só lugar. Seu objetivo é proporcionar atendimento veterinário de qualidade e produtos que contribuam para o bem-estar dos pets, sempre com carinho, responsabilidade, respeito e dedicação. A empresa busca crescer junto com seus clientes, construindo relações de confiança e tornando a vida dos animais cada vez melhor.',
   horario: 'Seg a sáb., das 8h às 18h.',
   telefone: '(00) 00000 - 0000',
   email: 'petcare.contato@gmail.com',
-  // Posição do pino no mapa (aproximada: trecho da Rua Princesa Isabel - E; conferir no Google Maps)
-  latitude: -27.0842422,
-  longitude: -52.6259183,
+  // Posição do pino no mapa (R. Uruguai, 294, tirada do Google Maps)
+  latitude: -27.1067434,
+  longitude: -52.6086373,
 };
 
 // "cor" é o nome do par de cores no tema (amarelo, verde, azul)
@@ -85,7 +60,6 @@ export const programadores = [
     itens: [
       'Estudante do Módulo IV, IFSC.',
       'Dona de um gato de 4 de 3 anos de idade, Oliver.',
-      'mais coisa',
       'UX/UI designer, figma + css/layout da aplicação.',
     ],
   },
@@ -96,7 +70,6 @@ export const programadores = [
     itens: [
       'Estudante do Módulo IV, IFSC.',
       'Dono de uma cachorra de 4 anos de idade, Amora.',
-      'mais coisa',
       'Dev fullstack react-native, desenvolvedor da aplicação.',
     ],
   },

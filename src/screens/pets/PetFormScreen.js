@@ -25,6 +25,7 @@ export default function PetFormScreen({ navigation, route, onAdicionar, onEditar
   const [dataNascimento, setDataNascimento] = useState(petOriginal.dataNascimento);
   const [sexo, setSexo] = useState(petOriginal.sexo);
   const [salvo, setSalvo] = useState(false);
+  const [salvando, setSalvando] = useState(false);
   // Ação de sair que ficou esperando a resposta do modal (null = modal fechado)
   const [saidaPendente, setSaidaPendente] = useState(null);
 
@@ -49,15 +50,17 @@ export default function PetFormScreen({ navigation, route, onAdicionar, onEditar
     }
   }, [salvo, navigation]);
 
-  function salvar() {
+  // Grava no Firebase e só volta para a lista se deu certo (se falhar, o AppNavigator mostra o erro)
+  async function salvar() {
     const pet = { nome: nome.trim(), especie, raca: raca.trim(), dataNascimento, sexo };
 
-    if (editando) {
-      onEditar({ ...pet, id: petOriginal.id });
-    } else {
-      onAdicionar(pet);
+    setSalvando(true);
+    const deuCerto = editando ? await onEditar({ ...pet, id: petOriginal.id }) : await onAdicionar(pet);
+    setSalvando(false);
+
+    if (deuCerto) {
+      setSalvo(true);
     }
-    setSalvo(true);
   }
 
   function sairSemSalvar() {
@@ -115,7 +118,13 @@ export default function PetFormScreen({ navigation, route, onAdicionar, onEditar
 
         <View style={styles.linha}>
           <BotaoGrande texto="Cancelar" contorno onPress={() => navigation.goBack()} style={styles.metade} />
-          <BotaoGrande texto="Salvar pet" onPress={salvar} disabled={!podeSalvar} style={styles.metade} />
+          <BotaoGrande
+            texto="Salvar pet"
+            onPress={salvar}
+            disabled={!podeSalvar || salvando}
+            carregando={salvando}
+            style={styles.metade}
+          />
         </View>
       </ScrollView>
 

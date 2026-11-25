@@ -10,7 +10,7 @@ export function mascararData(texto) {
 }
 
 // Converte "12/03/2023" em Date (ou null se a data não existir, como 31/02)
-function lerData(texto) {
+export function lerData(texto) {
   if (!/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) return null;
 
   const [dia, mes, ano] = texto.split('/').map(Number);
@@ -27,6 +27,26 @@ export function mascararHora(texto) {
 
   if (numeros.length <= 2) return numeros;
   return `${numeros.slice(0, 2)}:${numeros.slice(2)}`;
+}
+
+// Junta "18/11/2026" e "14:30" em um Date (para comparar qual agendamento vem primeiro)
+export function dataEHoraParaDate(texto, hora) {
+  const data = lerData(texto);
+  if (!data) return null;
+
+  const [horas, minutos] = hora.split(':').map(Number);
+  data.setHours(horas, minutos);
+  return data;
+}
+
+// "18/11/2026" -> "Qua, 18 nov" (usado no próximo agendamento do sino)
+export function formatarDataCurta(texto) {
+  const data = lerData(texto);
+  if (!data) return texto;
+
+  const diasSemana = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  const meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  return `${diasSemana[data.getDay()]}, ${data.getDate()} ${meses[data.getMonth()]}`;
 }
 
 // Mensagem de erro da data do agendamento ('' = sem erro).

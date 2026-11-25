@@ -4,10 +4,11 @@ import Cabecalho from '../components/Cabecalho';
 import MenuNotificacoes from '../components/MenuNotificacoes';
 import CartaoAtalho from '../components/CartaoAtalho';
 import SecaoServicos from '../components/SecaoServicos';
-import { proximoAgendamento, servicosEsteticos, servicosVeterinarios } from '../config/dados';
+import { servicosEsteticos, servicosVeterinarios } from '../config/dados';
 import { cores, espacos, raios, tipografia } from '../config/theme';
 
-export default function InicioScreen({ navigation }) {
+// O próximo agendamento vem do AppNavigator (calculado com os agendamentos do Firebase; null se não houver)
+export default function InicioScreen({ navigation, proximoAgendamento }) {
 
   function agendar(servico) {
     navigation.navigate('Agendar', { servico: servico.nome });

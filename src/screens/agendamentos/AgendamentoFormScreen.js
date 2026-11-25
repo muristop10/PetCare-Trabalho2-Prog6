@@ -32,6 +32,7 @@ export default function AgendamentoFormScreen({ navigation, route, pets, onAdici
   const [hora, setHora] = useState(original.hora);
   const [observacoes, setObservacoes] = useState(original.observacoes);
   const [mostrarModal, setMostrarModal] = useState(false);
+  const [salvando, setSalvando] = useState(false);
   // Fica true quando a pessoa confirmou que quer sair (libera a saída da tela)
   const [saindo, setSaindo] = useState(false);
 
@@ -109,15 +110,20 @@ export default function AgendamentoFormScreen({ navigation, route, pets, onAdici
     setSaindo(true);
   }
 
-  function confirmar() {
+  // Grava no Firebase e só sai da tela se deu certo (se falhar, o AppNavigator mostra o erro)
+  async function confirmar() {
     const dados = { pet, servico, data, hora, observacoes: observacoes.trim() };
 
+    setSalvando(true);
+    // Na edição mantém o id e o status do agendamento original
+    const deuCerto = editando ? await onEditar({ ...original, ...dados }) : await onAdicionar(dados);
+    setSalvando(false);
+
+    if (!deuCerto) return;
+
     if (editando) {
-      // Mantém o id e o status do agendamento original
-      onEditar({ ...original, ...dados });
       setSaindo(true);
     } else {
-      onAdicionar(dados);
       limpar();
       navigation.navigate('Agendamentos', { screen: 'ListaAgendamentos' });
     }
@@ -208,7 +214,8 @@ export default function AgendamentoFormScreen({ navigation, route, pets, onAdici
           <BotaoGrande
             texto={editando ? 'Salvar alterações' : 'Confirmar agendamento'}
             onPress={confirmar}
-            disabled={!podeConfirmar}
+            disabled={!podeConfirmar || salvando}
+            carregando={salvando}
           />
           <BotaoGrande texto="Cancelar" contorno onPress={sair} />
         </View>

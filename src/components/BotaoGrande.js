@@ -4,7 +4,7 @@ import { cores, raios, tipografia } from '../config/theme';
 
 // Botão de largura total (formulários e modais).
 // contorno: branco com borda azul. perigo: vermelho (Sair, Excluir).
-export default function BotaoGrande({ texto, onPress, contorno, perigo, disabled, style }) {
+export default function BotaoGrande({ texto, onPress, contorno, perigo, disabled, carregando, style }) {
   let corFundo = cores.primaria;
   if (perigo) corFundo = cores.perigo;
   if (contorno) corFundo = cores.superficie;
@@ -16,6 +16,7 @@ export default function BotaoGrande({ texto, onPress, contorno, perigo, disabled
       textColor={contorno ? cores.primaria : undefined}
       onPress={onPress}
       disabled={disabled}
+      loading={carregando}
       style={[styles.botao, contorno && styles.contorno, style]}
       contentStyle={styles.conteudo}
       labelStyle={styles.rotulo}
